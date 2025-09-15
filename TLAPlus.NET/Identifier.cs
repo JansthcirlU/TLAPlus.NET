@@ -14,13 +14,40 @@ public record Identifier
 
     public Identifier(string name)
     {
-        if (name is null) throw new ArgumentException("Identifier must not be null.", nameof(name));
-        if (name.AsSpan().ContainsAny(NewlineSequences)) throw new ArgumentException("Identifier must not contain any newlines.", nameof(name));
-        if (name.AsSpan().ContainsAny(WhitespaceCharacters)) throw new ArgumentException("Identifier must not contain any whitespace characters.", nameof(name));
-        if (name.AsSpan().ContainsAny(InvisibleCharacters)) throw new ArgumentException("Identifier must not contain any invisible characters.", nameof(name));
-        if (Forbidden.ReservedWords.Contains(name)) throw new ArgumentException($"Identifier must not be a reserved word: {name}.", nameof(name));
-        if (name.AsSpan().IndexOfAny(ReservedPrefixes) == 0) throw new ArgumentException($"Identifier must not start with a reserved prefix: {name}", nameof(name));
-        if (name.Any(c => !Allowed.Characters.Contains(c))) throw new ArgumentException($"Identifier must only contain alphanumerical characters or underscores.", nameof(name));
+        if (name is null)
+        {
+            throw new ArgumentException("Identifier must not be null.", nameof(name));
+        }
+
+        if (name.AsSpan().ContainsAny(NewlineSequences))
+        {
+            throw new ArgumentException("Identifier must not contain any newlines.", nameof(name));
+        }
+
+        if (name.AsSpan().ContainsAny(WhitespaceCharacters))
+        {
+            throw new ArgumentException("Identifier must not contain any whitespace characters.", nameof(name));
+        }
+
+        if (name.AsSpan().ContainsAny(InvisibleCharacters))
+        {
+            throw new ArgumentException("Identifier must not contain any invisible characters.", nameof(name));
+        }
+
+        if (Forbidden.ReservedWords.Contains(name))
+        {
+            throw new ArgumentException($"Identifier must not be a reserved word: {name}.", nameof(name));
+        }
+
+        if (name.AsSpan().IndexOfAny(ReservedPrefixes) == 0)
+        {
+            throw new ArgumentException($"Identifier must not start with a reserved prefix: {name}", nameof(name));
+        }
+
+        if (name.Any(c => !Allowed.Characters.Contains(c)))
+        {
+            throw new ArgumentException($"Identifier must only contain alphanumerical characters or underscores.", nameof(name));
+        }
 
         _value = name;
     }

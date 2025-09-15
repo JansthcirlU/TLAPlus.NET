@@ -20,12 +20,19 @@ public record ModuleName
         if (name.AsSpan().ContainsAny(InvisibleCharacters)) throw new ArgumentException("Module name must not contain any invisible characters.", nameof(name));
         if (Forbidden.ReservedWords.Contains(name)) throw new ArgumentException($"Module name must not be a reserved word: {name}.", nameof(name));
         if (name.AsSpan().IndexOfAny(ReservedPrefixes) == 0) throw new ArgumentException($"Module name must not start with a reserved prefix: {name}", nameof(name));
+        if (name.Any(c => !Allowed.Characters.Contains(c))) throw new ArgumentException($"Module name must only contain alphanumerical characters or underscores.", nameof(name));
 
         _value = name;
     }
 
     public static implicit operator ModuleName(string name) => new(name);
     public static implicit operator string(ModuleName moduleName) => moduleName._value;
+    public override string ToString() => (string)this;
+
+    public static class Allowed
+    {
+        public static readonly ImmutableHashSet<char> Characters = [.. "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"];
+    }
 
     public static class Forbidden
     {

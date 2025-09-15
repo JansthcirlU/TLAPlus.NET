@@ -141,4 +141,25 @@ public class ModuleNameTests
         Assert.NotNull(implicitStringCastEx);
         Assert.StartsWith(messageStart, implicitStringCastEx.Message);
     }
+
+    [Theory]
+    [ClassData(typeof(GuidWithUnderscoresData))]
+    public void ModuleName_WhenContainsAlphanumericalCharactersOrUnderscores_ShouldSucceed(string lowerWithUnderscores, string upperWithUnderscores)
+    {
+        // Act
+        ModuleName lowerConstructor = new(lowerWithUnderscores);
+        ModuleName upperConstructor = new(upperWithUnderscores);
+        ModuleName lowerImplicit = lowerWithUnderscores;
+        ModuleName upperImplicit = upperWithUnderscores;
+
+        // Assert
+        Assert.Equal(lowerWithUnderscores, (string)lowerConstructor);
+        Assert.Equal(upperWithUnderscores, (string)upperConstructor);
+        Assert.Equal(lowerWithUnderscores, (string)lowerImplicit);
+        Assert.Equal(upperWithUnderscores, (string)upperImplicit);
+        Assert.Equal(lowerWithUnderscores, lowerConstructor.ToString());
+        Assert.Equal(upperWithUnderscores, upperConstructor.ToString());
+        Assert.Equal(lowerWithUnderscores, lowerImplicit.ToString());
+        Assert.Equal(upperWithUnderscores, upperImplicit.ToString());
+    }
 }

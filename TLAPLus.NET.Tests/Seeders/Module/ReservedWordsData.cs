@@ -8,7 +8,7 @@ public class ReservedWordsData : TheoryData<string>
     {
         foreach (string reservedWord in ModuleName.Forbidden.ReservedWords)
         {
-            Add(reservedWord.ToString());
+            Add(reservedWord);
         }
     }
 }

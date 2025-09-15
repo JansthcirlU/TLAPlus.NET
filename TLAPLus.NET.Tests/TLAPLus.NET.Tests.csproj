@@ -18,4 +18,8 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TLAPlus.NET\TLAPlus.NET.csproj" />
+  </ItemGroup>
+
 </Project>

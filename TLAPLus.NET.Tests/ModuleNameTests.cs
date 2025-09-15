@@ -155,6 +155,37 @@ public class ModuleNameTests
 
         // Assert
         Assert.NotNull(ex);
-        Assert.StartsWith("Module name must not be a reserved word:", ex.Message);
+        Assert.StartsWith("Module name must not be a reserved word: ", ex.Message);
+    }
+
+    [Theory]
+    [ClassData(typeof(ReservedPrefixesData))]
+    public void ModuleName_WhenNameStartsWithReservedPrefix_ShouldFail(string name)
+    {
+        // Arrange & Act
+        ArgumentException ex = Assert.Throws<ArgumentException>(
+            () => new ModuleName(name)
+        );
+
+        // Assert
+        Assert.NotNull(ex);
+        Assert.StartsWith("Module name must not start with a reserved prefix: ", ex.Message);
+    }
+
+    [Theory]
+    [ClassData(typeof(ReservedPrefixesData))]
+    public void ModuleName_ImplicitStringCast_WhenNameStartsWithReservedPrefix_ShouldFail(string name)
+    {
+        // Arrange & Act
+        ArgumentException ex = Assert.Throws<ArgumentException>(
+            () =>
+            {
+                string s = new ModuleName(name);
+            }
+        );
+
+        // Assert
+        Assert.NotNull(ex);
+        Assert.StartsWith("Module name must not start with a reserved prefix: ", ex.Message);
     }
 }

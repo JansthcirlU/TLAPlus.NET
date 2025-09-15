@@ -10,6 +10,7 @@ public record ModuleName
     private static readonly SearchValues<char> WhitespaceCharacters = SearchValues.Create(Forbidden.WhitespaceCharacters.AsSpan());
     private static readonly SearchValues<char> InvisibleCharacters = SearchValues.Create(Forbidden.InvisibleCharacters.AsSpan());
     private static readonly SearchValues<string> NewlineSequences = SearchValues.Create(Forbidden.NewlineSequences.AsSpan(), StringComparison.OrdinalIgnoreCase);
+    private static readonly SearchValues<string> ReservedPrefixes = SearchValues.Create(Forbidden.ReservedPrefixes.AsSpan(), StringComparison.Ordinal);
 
     public ModuleName(string name)
     {
@@ -18,6 +19,7 @@ public record ModuleName
         if (name.AsSpan().ContainsAny(WhitespaceCharacters)) throw new ArgumentException("Module name must not contain any whitespace characters.", nameof(name));
         if (name.AsSpan().ContainsAny(InvisibleCharacters)) throw new ArgumentException("Module name must not contain any invisible characters.", nameof(name));
         if (Forbidden.ReservedWords.Contains(name)) throw new ArgumentException($"Module name must not be a reserved word: {name}.", nameof(name));
+        if (name.AsSpan().IndexOfAny(ReservedPrefixes) == 0) throw new ArgumentException($"Module name must not start with a reserved prefix: {name}", nameof(name));
 
         _value = name;
     }
@@ -57,6 +59,11 @@ public record ModuleName
             "VARIABLES",
             "WF_",
             "WITH"
+        ];
+
+        public static readonly ImmutableArray<string> ReservedPrefixes = [
+            "WF_",
+            "SF_"
         ];
 
         public static readonly ImmutableArray<char> WhitespaceCharacters = [

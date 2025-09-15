@@ -26,7 +26,7 @@ public record ModuleName
 
     public static class Forbidden
     {
-        public static readonly ImmutableArray<char> WhitespaceCharacters = ImmutableArray.Create(
+        public static readonly ImmutableArray<char> WhitespaceCharacters = [
             '\t',     // CHARACTER TABULATION (TAB)
             '\u000B', // LINE TABULATION (VERTICAL TAB)
             '\u000C', // FORM FEED (FF)
@@ -47,9 +47,9 @@ public record ModuleName
             '\u202F', // NARROW NO-BREAK SPACE
             '\u205F', // MEDIUM MATHEMATICAL SPACE
             '\u3000'  // IDEOGRAPHIC SPACE
-        );
+        ];
 
-        public static readonly ImmutableArray<char> InvisibleCharacters = ImmutableArray.Create(
+        public static readonly ImmutableArray<char> InvisibleCharacters = [
             '\u200B', // ZERO WIDTH SPACE
             '\u200C', // ZERO WIDTH NON-JOINER
             '\u200D', // ZERO WIDTH JOINER
@@ -75,9 +75,9 @@ public record ModuleName
             '\u1160', // HANGUL JUNGSEONG FILLER
             '\u3164', // HANGUL FILLER
             '\uFFA0'  // HALFWIDTH HANGUL FILLER
-        );
+        ];
 
-        public static readonly ImmutableArray<string> NewlineSequences = ImmutableArray.Create(
+        public static readonly ImmutableArray<string> NewlineSequences = [
             "\n",     // LINE FEED (LF)
             "\r",     // CARRIAGE RETURN (CR)
             "\u0085", // NEXT LINE (NEL)
@@ -88,6 +88,6 @@ public record ModuleName
             "\r\u0085", // CR + NEL
             "\n\u2028", // LF + LINE SEPARATOR
             "\u2028\u2029"  // LINE SEPARATOR + PARAGRAPH SEPARATOR
-        );
+        ];
     }
 }

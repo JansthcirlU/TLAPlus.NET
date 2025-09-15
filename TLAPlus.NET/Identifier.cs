@@ -1,9 +1,9 @@
 using System.Buffers;
 using System.Collections.Immutable;
 
-namespace TLAPlus.NET.Modules;
+namespace TLAPlus.NET;
 
-public record ModuleName
+public record Identifier
 {
     private readonly string _value;
 
@@ -12,21 +12,21 @@ public record ModuleName
     private static readonly SearchValues<string> NewlineSequences = SearchValues.Create(Forbidden.NewlineSequences.AsSpan(), StringComparison.OrdinalIgnoreCase);
     private static readonly SearchValues<string> ReservedPrefixes = SearchValues.Create(Forbidden.ReservedPrefixes.AsSpan(), StringComparison.Ordinal);
 
-    public ModuleName(string name)
+    public Identifier(string name)
     {
-        if (name is null) throw new ArgumentException("Module name must not be null.", nameof(name));
-        if (name.AsSpan().ContainsAny(NewlineSequences)) throw new ArgumentException("Module name must not contain any newlines.", nameof(name));
-        if (name.AsSpan().ContainsAny(WhitespaceCharacters)) throw new ArgumentException("Module name must not contain any whitespace characters.", nameof(name));
-        if (name.AsSpan().ContainsAny(InvisibleCharacters)) throw new ArgumentException("Module name must not contain any invisible characters.", nameof(name));
-        if (Forbidden.ReservedWords.Contains(name)) throw new ArgumentException($"Module name must not be a reserved word: {name}.", nameof(name));
-        if (name.AsSpan().IndexOfAny(ReservedPrefixes) == 0) throw new ArgumentException($"Module name must not start with a reserved prefix: {name}", nameof(name));
-        if (name.Any(c => !Allowed.Characters.Contains(c))) throw new ArgumentException($"Module name must only contain alphanumerical characters or underscores.", nameof(name));
+        if (name is null) throw new ArgumentException("Identifier must not be null.", nameof(name));
+        if (name.AsSpan().ContainsAny(NewlineSequences)) throw new ArgumentException("Identifier must not contain any newlines.", nameof(name));
+        if (name.AsSpan().ContainsAny(WhitespaceCharacters)) throw new ArgumentException("Identifier must not contain any whitespace characters.", nameof(name));
+        if (name.AsSpan().ContainsAny(InvisibleCharacters)) throw new ArgumentException("Identifier must not contain any invisible characters.", nameof(name));
+        if (Forbidden.ReservedWords.Contains(name)) throw new ArgumentException($"Identifier must not be a reserved word: {name}.", nameof(name));
+        if (name.AsSpan().IndexOfAny(ReservedPrefixes) == 0) throw new ArgumentException($"Identifier must not start with a reserved prefix: {name}", nameof(name));
+        if (name.Any(c => !Allowed.Characters.Contains(c))) throw new ArgumentException($"Identifier must only contain alphanumerical characters or underscores.", nameof(name));
 
         _value = name;
     }
 
-    public static implicit operator ModuleName(string name) => new(name);
-    public static implicit operator string(ModuleName moduleName) => moduleName._value;
+    public static implicit operator Identifier(string name) => new(name);
+    public static implicit operator string(Identifier identifier) => identifier._value;
     public override string ToString() => (string)this;
 
     public static class Allowed

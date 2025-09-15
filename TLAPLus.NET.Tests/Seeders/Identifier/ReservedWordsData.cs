@@ -1,12 +1,12 @@
 using TLAPlus.NET.Modules;
 
-namespace TLAPLus.NET.Tests.Seeders.Module;
+namespace TLAPLus.NET.Tests.Seeders.Identifier;
 
 public class ReservedWordsData : TheoryData<string>
 {
     public ReservedWordsData()
     {
-        foreach (string reservedWord in ModuleName.Forbidden.ReservedWords)
+        foreach (string reservedWord in TLAPlus.NET.Identifier.Forbidden.ReservedWords)
         {
             Add(reservedWord);
         }

@@ -2,7 +2,7 @@
 
 public record Module
 {
-    public ModuleName Name { get; }
+    public Identifier Name { get; }
 
     public Module(string name)
     {

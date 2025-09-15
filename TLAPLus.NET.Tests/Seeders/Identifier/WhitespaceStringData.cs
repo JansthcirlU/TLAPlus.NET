@@ -1,12 +1,12 @@
 using TLAPlus.NET.Modules;
 
-namespace TLAPLus.NET.Tests.Seeders.Module;
+namespace TLAPLus.NET.Tests.Seeders.Identifier;
 
 public class WhitespaceStringData : TheoryData<string>
 {
     public WhitespaceStringData()
     {
-        foreach (char whitespaceCharacter in ModuleName.Forbidden.WhitespaceCharacters)
+        foreach (char whitespaceCharacter in TLAPlus.NET.Identifier.Forbidden.WhitespaceCharacters)
         {
             Add(whitespaceCharacter.ToString());
         }

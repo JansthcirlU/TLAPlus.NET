@@ -1,12 +1,10 @@
-using TLAPlus.NET.Modules;
-
-namespace TLAPLus.NET.Tests.Seeders.Module;
+namespace TLAPLus.NET.Tests.Seeders.Identifier;
 
 public class InvisibleCharacterData : TheoryData<string>
 {
     public InvisibleCharacterData()
     {
-        foreach (char invisibleCharacter in ModuleName.Forbidden.InvisibleCharacters)
+        foreach (char invisibleCharacter in TLAPlus.NET.Identifier.Forbidden.InvisibleCharacters)
         {
             Add(invisibleCharacter.ToString());
         }

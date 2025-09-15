@@ -1,20 +1,20 @@
-﻿using TLAPlus.NET.Modules;
-using TLAPLus.NET.Tests.Seeders.Module;
+﻿using TLAPlus.NET;
+using TLAPLus.NET.Tests.Seeders.Identifier;
 
 namespace TLAPLus.NET.Tests;
 
-public class ModuleNameTests
+public class IdentifierTests
 {
     [Fact]
-    public void ModuleName_WhenNull_ShouldFail()
+    public void Identifier_WhenNull_ShouldFail()
     {
         // Arrange
-        Action<string?> constructor = name => new ModuleName(name!);
+        Action<string?> constructor = name => new Identifier(name!);
         Action<string?> implicitStringCast = name =>
         {
-            ModuleName moduleName = name!;
+            Identifier identifier = name!;
         };
-        string messageStart = "Module name must not be null.";
+        string messageStart = "Identifier must not be null.";
 
         // Act
         ArgumentException constructorEx = Assert.Throws<ArgumentException>(() => constructor(null!));
@@ -29,15 +29,15 @@ public class ModuleNameTests
 
     [Theory]
     [ClassData(typeof(WhitespaceStringData))]
-    public void ModuleName_WhenNameContainsWhitespace_ShouldFail(string name)
+    public void Identifier_WhenNameContainsWhitespace_ShouldFail(string name)
     {
         // Arrange
-        Action constructor = () => new ModuleName(name);
+        Action constructor = () => new Identifier(name);
         Action implicitStringCast = () =>
         {
-            ModuleName moduleName = name;
+            Identifier identifier = name;
         };
-        string messageStart = "Module name must not contain any whitespace characters.";
+        string messageStart = "Identifier must not contain any whitespace characters.";
 
         // Act
         ArgumentException constructorEx = Assert.Throws<ArgumentException>(constructor);
@@ -52,15 +52,15 @@ public class ModuleNameTests
 
     [Theory]
     [ClassData(typeof(InvisibleCharacterData))]
-    public void ModuleName_WhenNameContainsInvisibleCharacter_ShouldFail(string name)
+    public void Identifier_WhenNameContainsInvisibleCharacter_ShouldFail(string name)
     {
         // Arrange
-        Action constructor = () => new ModuleName(name);
+        Action constructor = () => new Identifier(name);
         Action implicitStringCast = () =>
         {
-            ModuleName moduleName = name;
+            Identifier identifier = name;
         };
-        string messageStart = "Module name must not contain any invisible characters.";
+        string messageStart = "Identifier must not contain any invisible characters.";
 
         // Act
         ArgumentException constructorEx = Assert.Throws<ArgumentException>(constructor);
@@ -75,15 +75,15 @@ public class ModuleNameTests
 
     [Theory]
     [ClassData(typeof(NewlineStringData))]
-    public void ModuleName_WhenNameContainsNewline_ShouldFail(string name)
+    public void Identifier_WhenNameContainsNewline_ShouldFail(string name)
     {
         // Arrange
-        Action constructor = () => new ModuleName(name);
+        Action constructor = () => new Identifier(name);
         Action implicitStringCast = () =>
         {
-            ModuleName moduleName = name;
+            Identifier identifier = name;
         };
-        string messageStart = "Module name must not contain any newlines.";
+        string messageStart = "Identifier must not contain any newlines.";
 
         // Act
         ArgumentException constructorEx = Assert.Throws<ArgumentException>(constructor);
@@ -98,15 +98,15 @@ public class ModuleNameTests
 
     [Theory]
     [ClassData(typeof(ReservedWordsData))]
-    public void ModuleName_WhenNameIsReservedWord_ShouldFail(string name)
+    public void Identifier_WhenNameIsReservedWord_ShouldFail(string name)
     {
         // Arrange
-        Action constructor = () => new ModuleName(name);
+        Action constructor = () => new Identifier(name);
         Action implicitStringCast = () =>
         {
-            ModuleName moduleName = name;
+            Identifier identifier = name;
         };
-        string messageStart = $"Module name must not be a reserved word: {name}";
+        string messageStart = $"Identifier must not be a reserved word: {name}";
 
         // Act
         ArgumentException constructorEx = Assert.Throws<ArgumentException>(constructor);
@@ -121,15 +121,15 @@ public class ModuleNameTests
 
     [Theory]
     [ClassData(typeof(ReservedPrefixesData))]
-    public void ModuleName_WhenNameStartsWithReservedPrefix_ShouldFail(string prefix, string name)
+    public void Identifier_WhenNameStartsWithReservedPrefix_ShouldFail(string prefix, string name)
     {
         // Arrange
-        Action constructor = () => new ModuleName(name);
+        Action constructor = () => new Identifier(name);
         Action implicitStringCast = () =>
         {
-            ModuleName moduleName = name;
+            Identifier identifier = name;
         };
-        string messageStart = $"Module name must not start with a reserved prefix: {prefix}";
+        string messageStart = $"Identifier must not start with a reserved prefix: {prefix}";
 
         // Act
         ArgumentException constructorEx = Assert.Throws<ArgumentException>(constructor);
@@ -144,13 +144,13 @@ public class ModuleNameTests
 
     [Theory]
     [ClassData(typeof(GuidWithUnderscoresData))]
-    public void ModuleName_WhenContainsAlphanumericalCharactersOrUnderscores_ShouldSucceed(string lowerWithUnderscores, string upperWithUnderscores)
+    public void Identifier_WhenContainsAlphanumericalCharactersOrUnderscores_ShouldSucceed(string lowerWithUnderscores, string upperWithUnderscores)
     {
         // Act
-        ModuleName lowerConstructor = new(lowerWithUnderscores);
-        ModuleName upperConstructor = new(upperWithUnderscores);
-        ModuleName lowerImplicit = lowerWithUnderscores;
-        ModuleName upperImplicit = upperWithUnderscores;
+        Identifier lowerConstructor = new(lowerWithUnderscores);
+        Identifier upperConstructor = new(upperWithUnderscores);
+        Identifier lowerImplicit = lowerWithUnderscores;
+        Identifier upperImplicit = upperWithUnderscores;
 
         // Assert
         Assert.Equal(lowerWithUnderscores, (string)lowerConstructor);

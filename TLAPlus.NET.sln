@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLAPlus.NET", "TLAPlus.NET\TLAPlus.NET.csproj", "{6F99E0F3-DE81-4A33-8669-9E0DD34E8B16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLAPLus.NET.Tests", "TLAPLus.NET.Tests\TLAPLus.NET.Tests.csproj", "{AEAC7027-B59D-4D64-9431-8494B5C26666}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLAPlus.NET.Tests", "TLAMinus.NET.Tests\TLAPlus.NET.Tests.csproj", "{AEAC7027-B59D-4D64-9431-8494B5C26666}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

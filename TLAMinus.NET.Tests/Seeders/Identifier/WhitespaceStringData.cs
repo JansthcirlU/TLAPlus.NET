@@ -1,6 +1,6 @@
 using TLAPlus.NET.Modules;
 
-namespace TLAPLus.NET.Tests.Seeders.Identifier;
+namespace TLAPlus.NET.Tests.Seeders.Identifier;
 
 public class WhitespaceStringData : TheoryData<string>
 {

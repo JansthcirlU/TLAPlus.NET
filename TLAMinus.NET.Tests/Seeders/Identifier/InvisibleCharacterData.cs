@@ -1,4 +1,4 @@
-namespace TLAPLus.NET.Tests.Seeders.Identifier;
+namespace TLAPlus.NET.Tests.Seeders.Identifier;
 
 public class InvisibleCharacterData : TheoryData<string>
 {

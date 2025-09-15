@@ -1,7 +1,6 @@
-﻿using TLAPlus.NET;
-using TLAPLus.NET.Tests.Seeders.Identifier;
+﻿using TLAPlus.NET.Tests.Seeders.Identifier;
 
-namespace TLAPLus.NET.Tests;
+namespace TLAPlus.NET.Tests;
 
 public class IdentifierTests
 {

@@ -36,11 +36,11 @@ public class ModuleNameTests
 
     [Theory]
     [ClassData(typeof(WhitespaceStringData))]
-    public void ModuleName_WhenNameIsNullOrWhitespace_ShouldFail(string? name)
+    public void ModuleName_WhenNameIsNullOrWhitespace_ShouldFail(string name)
     {
         // Arrange & Act
         ArgumentException ex = Assert.Throws<ArgumentException>(
-            () => new ModuleName(name!)
+            () => new ModuleName(name)
         );
 
         // Assert
@@ -50,13 +50,13 @@ public class ModuleNameTests
 
     [Theory]
     [ClassData(typeof(WhitespaceStringData))]
-    public void ModuleName_ImplicitStringCast_WhenNameIsNullOrWhitespace_ShouldFail(string? name)
+    public void ModuleName_ImplicitStringCast_WhenNameIsNullOrWhitespace_ShouldFail(string name)
     {
         // Arrange & Act
         ArgumentException ex = Assert.Throws<ArgumentException>(
             () =>
             {
-                string s = new ModuleName(name!);
+                string s = new ModuleName(name);
             }
         );
 
@@ -67,11 +67,11 @@ public class ModuleNameTests
 
     [Theory]
     [ClassData(typeof(InvisibleCharacterData))]
-    public void ModuleName_WhenNameContainsInvisibleCharacter_ShouldFail(string? name)
+    public void ModuleName_WhenNameContainsInvisibleCharacter_ShouldFail(string name)
     {
         // Arrange & Act
         ArgumentException ex = Assert.Throws<ArgumentException>(
-            () => new ModuleName(name!)
+            () => new ModuleName(name)
         );
 
         // Assert
@@ -81,11 +81,11 @@ public class ModuleNameTests
 
     [Theory]
     [ClassData(typeof(InvisibleCharacterData))]
-    public void ModuleName_ImplicitStringCast_WhenNameContainsInvisibleCharacter_ShouldFail(string? name)
+    public void ModuleName_ImplicitStringCast_WhenNameContainsInvisibleCharacter_ShouldFail(string name)
     {
         // Arrange & Act
         ArgumentException ex = Assert.Throws<ArgumentException>(
-            () => new ModuleName(name!)
+            () => new ModuleName(name)
         );
 
         // Assert
@@ -95,13 +95,13 @@ public class ModuleNameTests
 
     [Theory]
     [ClassData(typeof(NewlineStringData))]
-    public void ModuleName_WhenNameContainsNewline_ShouldFail(string? name)
+    public void ModuleName_WhenNameContainsNewline_ShouldFail(string name)
     {
         // Arrange & Act
         ArgumentException ex = Assert.Throws<ArgumentException>(
             () =>
             {
-                string s = new ModuleName(name!);
+                string s = new ModuleName(name);
             }
         );
 
@@ -112,18 +112,49 @@ public class ModuleNameTests
 
     [Theory]
     [ClassData(typeof(NewlineStringData))]
-    public void ModuleName_ImplicitStringCast_WhenNameContainsNewline_ShouldFail(string? name)
+    public void ModuleName_ImplicitStringCast_WhenNameContainsNewline_ShouldFail(string name)
     {
         // Arrange & Act
         ArgumentException ex = Assert.Throws<ArgumentException>(
             () =>
             {
-                string s = new ModuleName(name!);
+                string s = new ModuleName(name);
             }
         );
 
         // Assert
         Assert.NotNull(ex);
         Assert.StartsWith("Module name must not contain any newlines.", ex.Message);
+    }
+
+    [Theory]
+    [ClassData(typeof(ReservedWordsData))]
+    public void ModuleName_WhenNameIsReservedWord_ShouldFail(string name)
+    {
+        // Arrange & Act
+        ArgumentException ex = Assert.Throws<ArgumentException>(
+            () => new ModuleName(name)
+        );
+
+        // Assert
+        Assert.NotNull(ex);
+        Assert.StartsWith("Module name must not be a reserved word:", ex.Message);
+    }
+
+    [Theory]
+    [ClassData(typeof(ReservedWordsData))]
+    public void ModuleName_ImplicitStringCast_WhenNameIsReservedWord_ShouldFail(string name)
+    {
+        // Arrange & Act
+        ArgumentException ex = Assert.Throws<ArgumentException>(
+            () =>
+            {
+                string s = new ModuleName(name);
+            }
+        );
+
+        // Assert
+        Assert.NotNull(ex);
+        Assert.StartsWith("Module name must not be a reserved word:", ex.Message);
     }
 }

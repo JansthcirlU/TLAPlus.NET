@@ -17,6 +17,7 @@ public record ModuleName
         if (name.AsSpan().ContainsAny(NewlineSequences)) throw new ArgumentException("Module name must not contain any newlines.", nameof(name));
         if (name.AsSpan().ContainsAny(WhitespaceCharacters)) throw new ArgumentException("Module name must not contain any whitespace characters.", nameof(name));
         if (name.AsSpan().ContainsAny(InvisibleCharacters)) throw new ArgumentException("Module name must not contain any invisible characters.", nameof(name));
+        if (Forbidden.ReservedWords.Contains(name)) throw new ArgumentException($"Module name must not be a reserved word: {name}.", nameof(name));
 
         _value = name;
     }
@@ -26,6 +27,38 @@ public record ModuleName
 
     public static class Forbidden
     {
+        public static readonly ImmutableHashSet<string> ReservedWords = [
+            "ASSUME",
+            "ASSUMPTION",
+            "AXIOM",
+            "CASE",
+            "CHOOSE",
+            "CONSTANT",
+            "CONSTANTS",
+            "DOMAIN",
+            "ELSE",
+            "ENABLED",
+            "EXCEPT",
+            "EXTENDS",
+            "IF",
+            "IN",
+            "INSTANCE",
+            "LET",
+            "LOCAL",
+            "MODULE",
+            "OTHER",
+            "SF_",
+            "SUBSET",
+            "THEN",
+            "THEOREM",
+            "UNCHANGED",
+            "UNION",
+            "VARIABLE",
+            "VARIABLES",
+            "WF_",
+            "WITH"
+        ];
+
         public static readonly ImmutableArray<char> WhitespaceCharacters = [
             '\t',     // CHARACTER TABULATION (TAB)
             '\u000B', // LINE TABULATION (VERTICAL TAB)

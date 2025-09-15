@@ -4,7 +4,7 @@ public class GuidWithUnderscoresData : TheoryData<string, string>
 {
     public GuidWithUnderscoresData()
     {
-        foreach (int i in Enumerable.Range(0, 20))
+        foreach (int _ in Enumerable.Range(0, 20))
         {
             Guid guid = Guid.NewGuid();
             string guidWithUnderscores = guid.ToString("N").Replace('-', '_');

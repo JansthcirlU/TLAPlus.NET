@@ -11,6 +11,7 @@ public record Identifier
     private static readonly SearchValues<char> InvisibleCharacters = SearchValues.Create(Forbidden.InvisibleCharacters.AsSpan());
     private static readonly SearchValues<string> NewlineSequences = SearchValues.Create(Forbidden.NewlineSequences.AsSpan(), StringComparison.OrdinalIgnoreCase);
     private static readonly SearchValues<string> ReservedPrefixes = SearchValues.Create(Forbidden.ReservedPrefixes.AsSpan(), StringComparison.Ordinal);
+    private static readonly SearchValues<char> Letters = SearchValues.Create("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
 
     public Identifier(string name)
     {
@@ -47,6 +48,11 @@ public record Identifier
         if (name.Any(c => !Allowed.Characters.Contains(c)))
         {
             throw new ArgumentException($"Identifier must only contain alphanumerical characters or underscores.", nameof(name));
+        }
+
+        if (!name.AsSpan().ContainsAny(Letters))
+        {
+            throw new ArgumentException("Identifier must contain at least one letter.", nameof(name));
         }
 
         _value = name;

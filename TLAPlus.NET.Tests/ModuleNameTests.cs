@@ -142,6 +142,29 @@ public class IdentifierTests
     }
 
     [Theory]
+    [ClassData(typeof(InvalidIdentifiersData))]
+    public void Identifier_WhenDoesNotContainLetter_ShouldFail(string name)
+    {
+        // Arrange
+        Action constructor = () => new Identifier(name);
+        Action implicitStringCast = () =>
+        {
+            Identifier identifier = name;
+        };
+        string messageStart = "Identifier must contain at least one letter.";
+
+        // Act
+        ArgumentException constructorEx = Assert.Throws<ArgumentException>(constructor);
+        ArgumentException implicitStringCastEx = Assert.Throws<ArgumentException>(implicitStringCast);
+
+        // Assert
+        Assert.NotNull(constructorEx);
+        Assert.StartsWith(messageStart, constructorEx.Message);
+        Assert.NotNull(implicitStringCastEx);
+        Assert.StartsWith(messageStart, implicitStringCastEx.Message);
+    }
+
+    [Theory]
     [ClassData(typeof(GuidWithUnderscoresData))]
     public void Identifier_WhenContainsAlphanumericalCharactersOrUnderscores_ShouldSucceed(string lowerWithUnderscores, string upperWithUnderscores)
     {

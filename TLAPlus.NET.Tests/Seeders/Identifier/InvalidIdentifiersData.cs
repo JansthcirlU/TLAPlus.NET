@@ -15,7 +15,7 @@ public class InvalidIdentifiersData : TheoryData<string>
             Add(prefix + suffix);
         }
     }
-    
+
     public static string PickRandom(byte count, string from)
     {
         if (count == 0)

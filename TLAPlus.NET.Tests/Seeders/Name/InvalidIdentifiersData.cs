@@ -1,12 +1,12 @@
 using System.Text;
 
-namespace TLAPlus.NET.Tests.Seeders.Identifier;
+namespace TLAPlus.NET.Tests.Seeders.Name;
 
-public class InvalidIdentifiersData : TheoryData<string>
+public class InvalidNamesData : TheoryData<string>
 {
     const string NonLetterIdentifierCharacters = "0123456789_";
 
-    public InvalidIdentifiersData()
+    public InvalidNamesData()
     {
         foreach (int _ in Enumerable.Range(0, 20))
         {

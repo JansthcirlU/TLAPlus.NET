@@ -1,19 +1,19 @@
-﻿using TLAPlus.NET.Tests.Seeders.Identifier;
+using TLAPlus.NET.Tests.Seeders.Name;
 
 namespace TLAPlus.NET.Tests;
 
-public class IdentifierTests
+public class NameTests
 {
     [Fact]
-    public void Identifier_WhenNull_ShouldFail()
+    public void Name_WhenNull_ShouldFail()
     {
         // Arrange
-        Action<string?> constructor = name => new Identifier(name!);
-        Action<string?> implicitStringCast = name =>
+        Action<string?> constructor = value => new Name(value!);
+        Action<string?> implicitStringCast = value =>
         {
-            Identifier identifier = name!;
+            Name name = value!;
         };
-        string messageStart = "Identifier must not be null.";
+        string messageStart = "Name must not be null.";
 
         // Act
         ArgumentException constructorEx = Assert.Throws<ArgumentException>(() => constructor(null!));
@@ -28,15 +28,15 @@ public class IdentifierTests
 
     [Theory]
     [ClassData(typeof(WhitespaceStringData))]
-    public void Identifier_WhenNameContainsWhitespace_ShouldFail(string name)
+    public void Name_WhenNameContainsWhitespace_ShouldFail(string value)
     {
         // Arrange
-        Action constructor = () => new Identifier(name);
+        Action constructor = () => new Name(value);
         Action implicitStringCast = () =>
         {
-            Identifier identifier = name;
+            Name name = value;
         };
-        string messageStart = "Identifier must not contain any whitespace characters.";
+        string messageStart = "Name must not contain any whitespace characters.";
 
         // Act
         ArgumentException constructorEx = Assert.Throws<ArgumentException>(constructor);
@@ -51,15 +51,15 @@ public class IdentifierTests
 
     [Theory]
     [ClassData(typeof(InvisibleCharacterData))]
-    public void Identifier_WhenNameContainsInvisibleCharacter_ShouldFail(string name)
+    public void Name_WhenNameContainsInvisibleCharacter_ShouldFail(string value)
     {
         // Arrange
-        Action constructor = () => new Identifier(name);
+        Action constructor = () => new Name(value);
         Action implicitStringCast = () =>
         {
-            Identifier identifier = name;
+            Name name = value;
         };
-        string messageStart = "Identifier must not contain any invisible characters.";
+        string messageStart = "Name must not contain any invisible characters.";
 
         // Act
         ArgumentException constructorEx = Assert.Throws<ArgumentException>(constructor);
@@ -74,38 +74,15 @@ public class IdentifierTests
 
     [Theory]
     [ClassData(typeof(NewlineStringData))]
-    public void Identifier_WhenNameContainsNewline_ShouldFail(string name)
+    public void Name_WhenNameContainsNewline_ShouldFail(string value)
     {
         // Arrange
-        Action constructor = () => new Identifier(name);
+        Action constructor = () => new Name(value);
         Action implicitStringCast = () =>
         {
-            Identifier identifier = name;
+            Name name = value;
         };
-        string messageStart = "Identifier must not contain any newlines.";
-
-        // Act
-        ArgumentException constructorEx = Assert.Throws<ArgumentException>(constructor);
-        ArgumentException implicitStringCastEx = Assert.Throws<ArgumentException>(implicitStringCast);
-
-        // Assert
-        Assert.NotNull(constructorEx);
-        Assert.StartsWith(messageStart, constructorEx.Message);
-        Assert.NotNull(implicitStringCastEx);
-        Assert.StartsWith(messageStart, implicitStringCastEx.Message);
-    }
-
-    [Theory]
-    [ClassData(typeof(ReservedWordsData))]
-    public void Identifier_WhenNameIsReservedWord_ShouldFail(string name)
-    {
-        // Arrange
-        Action constructor = () => new Identifier(name);
-        Action implicitStringCast = () =>
-        {
-            Identifier identifier = name;
-        };
-        string messageStart = $"Identifier must not be a reserved word: {name}";
+        string messageStart = "Name must not contain any newlines.";
 
         // Act
         ArgumentException constructorEx = Assert.Throws<ArgumentException>(constructor);
@@ -120,15 +97,15 @@ public class IdentifierTests
 
     [Theory]
     [ClassData(typeof(ReservedPrefixesData))]
-    public void Identifier_WhenNameStartsWithReservedPrefix_ShouldFail(string prefix, string name)
+    public void Name_WhenNameStartsWithReservedPrefix_ShouldFail(string prefix, string value)
     {
         // Arrange
-        Action constructor = () => new Identifier(name);
+        Action constructor = () => new Name(value);
         Action implicitStringCast = () =>
         {
-            Identifier identifier = name;
+            Name name = value;
         };
-        string messageStart = $"Identifier must not start with a reserved prefix: {prefix}";
+        string messageStart = $"Name must not start with a reserved prefix: {prefix}";
 
         // Act
         ArgumentException constructorEx = Assert.Throws<ArgumentException>(constructor);
@@ -142,16 +119,16 @@ public class IdentifierTests
     }
 
     [Theory]
-    [ClassData(typeof(InvalidIdentifiersData))]
-    public void Identifier_WhenDoesNotContainLetter_ShouldFail(string name)
+    [ClassData(typeof(InvalidNamesData))]
+    public void Name_WhenDoesNotContainLetter_ShouldFail(string value)
     {
         // Arrange
-        Action constructor = () => new Identifier(name);
+        Action constructor = () => new Name(value);
         Action implicitStringCast = () =>
         {
-            Identifier identifier = name;
+            Name name = value;
         };
-        string messageStart = "Identifier must contain at least one letter.";
+        string messageStart = "Name must contain at least one letter.";
 
         // Act
         ArgumentException constructorEx = Assert.Throws<ArgumentException>(constructor);
@@ -166,13 +143,13 @@ public class IdentifierTests
 
     [Theory]
     [ClassData(typeof(GuidWithUnderscoresData))]
-    public void Identifier_WhenContainsAlphanumericalCharactersOrUnderscores_ShouldSucceed(string lowerWithUnderscores, string upperWithUnderscores)
+    public void Name_WhenContainsAlphanumericalCharactersOrUnderscores_ShouldSucceed(string lowerWithUnderscores, string upperWithUnderscores)
     {
         // Act
-        Identifier lowerConstructor = new(lowerWithUnderscores);
-        Identifier upperConstructor = new(upperWithUnderscores);
-        Identifier lowerImplicit = lowerWithUnderscores;
-        Identifier upperImplicit = upperWithUnderscores;
+        Name lowerConstructor = new(lowerWithUnderscores);
+        Name upperConstructor = new(upperWithUnderscores);
+        Name lowerImplicit = lowerWithUnderscores;
+        Name upperImplicit = upperWithUnderscores;
 
         // Assert
         Assert.Equal(lowerWithUnderscores, (string)lowerConstructor);

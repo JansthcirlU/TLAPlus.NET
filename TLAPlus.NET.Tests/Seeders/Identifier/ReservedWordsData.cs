@@ -4,7 +4,7 @@ public class ReservedWordsData : TheoryData<string>
 {
     public ReservedWordsData()
     {
-        foreach (string reservedWord in NET.Identifier.Forbidden.ReservedWords)
+        foreach (string reservedWord in NET.Identifier.ReservedWords)
         {
             Add(reservedWord);
         }

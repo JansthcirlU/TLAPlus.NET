@@ -1,10 +1,10 @@
-namespace TLAPlus.NET.Tests.Seeders.Identifier;
+namespace TLAPlus.NET.Tests.Seeders.Name;
 
 public class NewlineStringData : TheoryData<string>
 {
     public NewlineStringData()
     {
-        foreach (string newlineString in NET.Identifier.Forbidden.NewlineSequences)
+        foreach (string newlineString in NET.Name.Forbidden.NewlineSequences)
         {
             Add(newlineString);
         }

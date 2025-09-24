@@ -1,4 +1,4 @@
-namespace TLAPlus.NET.Tests.Seeders.Identifier;
+namespace TLAPlus.NET.Tests.Seeders.Name;
 
 public class GuidWithUnderscoresData : TheoryData<string, string>
 {

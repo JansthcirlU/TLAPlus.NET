@@ -20,7 +20,7 @@ public record Identifier
     public static implicit operator Name(Identifier identifier) => identifier._name;
     public static implicit operator string(Identifier identifier) => (Name)identifier;
     public static implicit operator Identifier(string value) => new((Name)value);
-    
+
     public override string ToString() => (string)this;
 
     public static readonly ImmutableHashSet<string> ReservedWords = [
